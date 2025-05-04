@@ -38,7 +38,7 @@ helm install bitwarden-external-secrets eznix86/bitwarden-external-secrets \
 | private key | ✅ | bitwarden-ssh-key | privateKey |
 | public key | ✅ | bitwarden-ssh-key | publicKey |
 | key fingerprint | ✅ | bitwarden-ssh-key | keyFingerprint |
-| attachments* | ❌ | - | - |
+| attachments | ❌ | - | - |
 
 ### Deploying a secret
 
