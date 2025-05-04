@@ -43,10 +43,11 @@ helm install bitwarden-external-secrets eznix86/bitwarden-external-secrets \
 ### Deploying a secret
 
 ```yaml
+kubectl apply -f <<EOF
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: my-secrets
+  name: my-bitwarden-secret
   namespace: bitwarden-external-secrets
 spec:
   refreshPolicy: Periodic
@@ -68,30 +69,30 @@ spec:
         ssh_key_public: |
           {{ .ssh_key_public }}
   data:
-    - secretKey: username
+    - secretKey: username # your secret name mapping
       sourceRef:
         storeRef:
           name: bitwarden-login 
           kind: ClusterSecretStore
       remoteRef:
-        key: 075b7bad-5ce8-4904-b87f-ad4d595d64a0
+        key: 075b7bad-5ce8-4904-b87f-ad4d595d64a0 # your bitwarden item id
         property: username
-    - secretKey: password
+    - secretKey: password # your secret name mapping
       sourceRef:
         storeRef:
-          name: bitwarden-login
+          name: bitwarden-login 
           kind: ClusterSecretStore
       remoteRef:
-        key: 075b7bad-5ce8-4904-b87f-ad4d595d64a0
+        key: 075b7bad-5ce8-4904-b87f-ad4d595d64a0 # your bitwarden item id
         property: password
-    - secretKey: note
+    - secretKey: note # your secret name mapping
       sourceRef:
         storeRef:
           name: bitwarden-notes
           kind: ClusterSecretStore
       remoteRef:
         key: 075b7bad-5ce8-4904-b87f-ad4d595d64a0
-    - secretKey: field
+    - secretKey: field # your secret name mapping
       sourceRef:
         storeRef:
           name: bitwarden-fields
@@ -100,7 +101,7 @@ spec:
         key: 075b7bad-5ce8-4904-b87f-ad4d595d64a0
         property: custom-field
 
-    - secretKey: ssh_key_public
+    - secretKey: ssh_key_public # your secret name mapping
       sourceRef:
         storeRef:
           name: bitwarden-ssh-key
@@ -108,6 +109,25 @@ spec:
       remoteRef:
         key: 7b0a8e1a-a54e-415b-becf-bc804449be1e
         property: publicKey # publicKey or privateKey or keyFingerprint
+EOF
+```
+
+This will create a secret with the following secret:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secrets
+  namespace: bitwarden-external-secrets
+data:
+  field: <base64>
+  note: <base64>
+  password: <base64>
+  ssh_key_public: >-
+    <redacted>
+  username: <redacted>
+type: Opaque
 ```
 
 ### Future Improvements
