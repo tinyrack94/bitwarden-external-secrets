@@ -43,73 +43,28 @@ helm install bitwarden-external-secrets eznix86/bitwarden-external-secrets \
 ### Deploying a secret
 
 ```yaml
-kubectl apply -f <<EOF
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
+apiVersion: bitwarden.external-secrets.io/v1alpha1
+kind: BitwardenSecret
 metadata:
-  name: my-bitwarden-secret
-  namespace: bitwarden-external-secrets
+  name: bitwarden-secrets
 spec:
-  refreshPolicy: Periodic
-  refreshInterval: 1m
-  target:
-    name: my-secrets
-    deletionPolicy: Delete
-    template:
-      type: Opaque
-      data:
-        username: |
-          {{ .username }}
-        password: |
-          {{ .password }}
-        note: |
-          {{ .note }}
-        field: |
-          {{ .field }}
-        ssh_key_public: |
-          {{ .ssh_key_public }}
-  data:
-    - secretKey: username # your secret name mapping
-      sourceRef:
-        storeRef:
-          name: bitwarden-login 
-          kind: ClusterSecretStore
-      remoteRef:
-        key: 075b7bad-5ce8-4904-b87f-ad4d595d64a0 # your bitwarden item id
+  namespace: bitwarden-external-secrets
+  secrets:
+    username:
+      itemRef:
+        id: "d0a5c1a7-dcc1-4562-9ca7-b2d201564347" 
+        type: login
         property: username
-    - secretKey: password # your secret name mapping
-      sourceRef:
-        storeRef:
-          name: bitwarden-login 
-          kind: ClusterSecretStore
-      remoteRef:
-        key: 075b7bad-5ce8-4904-b87f-ad4d595d64a0 # your bitwarden item id
+    password:
+      itemRef:
+        id: "d0a5c1a7-dcc1-4562-9ca7-b2d201564347"
+        type: login
         property: password
-    - secretKey: note # your secret name mapping
-      sourceRef:
-        storeRef:
-          name: bitwarden-notes
-          kind: ClusterSecretStore
-      remoteRef:
-        key: 075b7bad-5ce8-4904-b87f-ad4d595d64a0
-    - secretKey: field # your secret name mapping
-      sourceRef:
-        storeRef:
-          name: bitwarden-fields
-          kind: ClusterSecretStore
-      remoteRef:
-        key: 075b7bad-5ce8-4904-b87f-ad4d595d64a0
-        property: custom-field
-
-    - secretKey: ssh_key_public # your secret name mapping
-      sourceRef:
-        storeRef:
-          name: bitwarden-ssh-key
-          kind: ClusterSecretStore
-      remoteRef:
-        key: 7b0a8e1a-a54e-415b-becf-bc804449be1e
+    bitwarden-public-key:
+      itemRef:
+        id: "d0a5c1a7-dcc1-4562-9ca7-b2d201564347"
+        type: sshKey
         property: publicKey # publicKey or privateKey or keyFingerprint
-EOF
 ```
 
 This will create a secret with the following secret:
@@ -121,19 +76,12 @@ metadata:
   name: my-secrets
   namespace: bitwarden-external-secrets
 data:
-  field: <base64>
-  note: <base64>
+  username: <base64>
   password: <base64>
-  ssh_key_public: >-
-    <redacted>
-  username: <redacted>
+  bitwarden-public-key: <base64>
 type: Opaque
 ```
 
-### Future Improvements
-
-- [ ] Use [kro.run](https://kro.run) to create a custom resource
-  - blocked by [kro.run issue](https://github.com/kro-run/kro/issues/17)
 
 
 

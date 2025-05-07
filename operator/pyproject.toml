@@ -1,0 +1,28 @@
+[project]
+name = "bitwarden-secrets-operator"
+version = "0.1.0"
+description = "This create external secrets resources on the fly"
+authors = [
+    {name = "Bruno Bernard",email = "brunobernard@duck.com"}
+]
+license = {text = "MIT"}
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "kubernetes (>=32.0.1,<33.0.0)",
+    "kopf (>=1.37.5,<2.0.0)",
+    "pydantic (>=2.11.4,<3.0.0)",
+    "kr8s (>=0.20.7,<0.21.0)"
+]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+ruff = ">=0.11.8,<0.12.0"
+
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.8"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

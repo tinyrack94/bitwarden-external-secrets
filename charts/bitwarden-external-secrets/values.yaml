@@ -3,6 +3,12 @@ image:
   pullPolicy: IfNotPresent
   tag: latest
 
+operator:
+  image:
+    repository: ghcr.io/eznix86/bitwarden-operator
+    pullPolicy: IfNotPresent
+    tag: latest
+
 secrets:
   bw_clientid: ""
   bw_clientsecret: ""

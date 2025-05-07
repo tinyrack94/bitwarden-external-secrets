@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitwarden-operator
+  labels:
+    app: bitwarden-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bitwarden-operator
+  template:
+    metadata:
+      labels:
+        app: bitwarden-operator
+    spec:
+      serviceAccountName: bitwarden-operator
+      containers:
+      - name: operator
+        image: {{ .Values.operator.image.repository }}:{{ .Values.operator.image.tag }}
+        imagePullPolicy: {{ .Values.operator.image.pullPolicy }}
+        livenessProbe:
+          httpGet:
+            path: /up
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "100m"
+          limits:
+            memory: "64Mi"
+            cpu: "200m"

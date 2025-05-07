@@ -1,12 +1,11 @@
-name: Docker Build and Push
+name: Docker Build Bitwarden Operator and Push
 
 on:
   push:
     branches:
       - main
     paths:
-      - Containerfile
-      - entrypoint.sh
+      - operator/**
 
 jobs:
   build-and-push:
@@ -32,14 +31,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/bitwarden-cli
+          images: ghcr.io/${{ github.repository_owner }}/bitwarden-external-secrets
           tags: |
             type=raw,value=latest
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: operator
           file: Containerfile
           push: true
           platforms: linux/amd64
