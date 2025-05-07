@@ -14,8 +14,3 @@ secrets:
   bw_clientsecret: ""
   bw_password: ""
   bw_host: "https://bitwarden.com"
-
-external-secrets:
-  installCRDs: false
-  crds:
-    createClusterResourcesEnabled: false
