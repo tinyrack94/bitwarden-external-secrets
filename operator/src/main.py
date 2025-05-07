@@ -260,9 +260,7 @@ async def update_status(body, **kwargs):
     except pydantic.ValidationError as e:
         kopf.exception(body, reason='ValidationError', message=f"Failed to validate resource: {str(e)}")
     except Exception as e:
-
         kopf.exception(body, reason='UnhandledError', message=f"Unexpected error during status update: {str(e)}")
-
         raise
     
     

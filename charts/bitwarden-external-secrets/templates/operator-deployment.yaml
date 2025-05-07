@@ -5,6 +5,8 @@ metadata:
   labels:
     app: bitwarden-operator
 spec:
+  strategy:
+    type: Recreate
   replicas: 1
   selector:
     matchLabels:
@@ -29,8 +31,8 @@ spec:
           failureThreshold: 3
         resources:
           requests:
-            memory: "32Mi"
-            cpu: "100m"
-          limits:
             memory: "64Mi"
             cpu: "200m"
+          limits:
+            memory: "128Mi"
+            cpu: "400m"
