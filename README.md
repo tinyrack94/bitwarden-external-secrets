@@ -1,6 +1,10 @@
 # Bitwarden External Secrets for Kubernetes
 
-![Bitwarden + External Secrets](https://img.shields.io/badge/Bitwarden-External%20Secrets-175DDC?style=for-the-badge&logo=bitwarden&logoColor=white)
+
+
+![Bitwarden + External Secrets](https://img.shields.io/badge/Bitwarden-Secrets%20In%20Kubernetes-175DDC?style=for-the-badge&logo=bitwarden&logoColor=white)
+
+[![asciicast](https://asciinema.org/a/70gnFZURXEmQTyinx4f39tVis.svg)](https://asciinema.org/a/70gnFZURXEmQTyinx4f39tVis)
 
 A Kubernetes operator that integrates [Bitwarden](https://bitwarden.com)/[Vaultwarden](https://github.com/dani-garcia/vaultwarden) with the [External Secrets Operator](https://external-secrets.io/) to securely manage your Kubernetes secrets.
 
@@ -30,18 +34,12 @@ kubectl get pods -n bitwarden-external-secrets
 This operator allows you to:
 - Use your Bitwarden vault as a secure backend for Kubernetes secrets
 - Automatically sync secrets from Bitwarden to Kubernetes
-- Leverage the External Secrets Operator for secret rotation and management
+- Bitwarden Operator will handle secret rotation and management on demand
 
 > [!NOTE]
 > This operator is different from the Bitwarden Kubernetes Operator. It uses Bitwarden as a source for secrets rather than managing Bitwarden itself.
 
 ## 🔧 Installation
-
-### Prerequisites
-
-- Kubernetes cluster (v1.19+)
-- Helm v3
-- Bitwarden or Vaultwarden account with API credentials
 
 ### Step 1: Install External Secrets Operator
 
