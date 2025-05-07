@@ -5,7 +5,7 @@ image:
 
 operator:
   image:
-    repository: ghcr.io/eznix86/bitwarden-operator
+    repository: ghcr.io/eznix86/bitwarden-external-secrets-operator
     pullPolicy: IfNotPresent
     tag: latest
 

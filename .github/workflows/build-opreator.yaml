@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - operator/**
+      - .github/workflows/build-opreator.yaml
 
 jobs:
   build-and-push:
@@ -31,7 +32,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/bitwarden-external-secrets
+          images: ghcr.io/${{ github.repository_owner }}/bitwarden-external-secrets-operator
           tags: |
             type=raw,value=latest
 
