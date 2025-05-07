@@ -4,7 +4,7 @@
 
 ![Bitwarden + External Secrets](https://img.shields.io/badge/Bitwarden-Secrets%20In%20Kubernetes-175DDC?style=for-the-badge&logo=bitwarden&logoColor=white)
 
-[![asciicast](https://asciinema.org/a/718388.svg)](https://asciinema.org/a/718388)
+[![asciicast](./images/bitwarden.gif)](https://asciinema.org/a/718388)
 
 A Kubernetes operator that integrates [Bitwarden](https://bitwarden.com)/[Vaultwarden](https://github.com/dani-garcia/vaultwarden) with the [External Secrets Operator](https://external-secrets.io/) to securely manage your Kubernetes secrets.
 
