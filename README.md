@@ -99,7 +99,7 @@ spec:
     # Each key will be created in the resulting Secret
     db-username:
       itemRef:
-        id: "your-bitwarden-item-id"  # Find this in Bitwarden web UI or CLI
+        id: "your-bitwarden-item-id"   # On Bitwarden Web UI, Grab the itemId from the URL
         type: login                    # Type of Bitwarden item
         property: username             # Property to extract from the item
     
@@ -154,10 +154,6 @@ kubectl logs -l app=bitwarden-operator -n bitwarden-external-secrets
 To cleanly uninstall the charts:
 
 ```bash
-# First remove ValidatingWebhookConfigurations to avoid webhook issues
-kubectl delete validatingwebhookconfigurations -l app.kubernetes.io/name=external-secrets
-
-# Then uninstall the Helm charts
 helm uninstall bitwarden-external-secrets -n bitwarden-external-secrets
 helm uninstall external-secrets -n external-secrets
 ```
