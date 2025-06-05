@@ -3,7 +3,7 @@ from typing import Dict, Optional, List, Type
 from kr8s.objects import new_class, APIObject
 
 ExternalSecretResource: Type[APIObject] = new_class(
-    kind="ExternalSecret", version="external-secrets.io/v1beta1", namespaced=True
+    kind="ExternalSecret", version="external-secrets.io/v1", namespaced=True
 )
 
 BitwardenSecretResource: Type[APIObject] = new_class(
@@ -58,7 +58,7 @@ class Metadata(BaseModel):
 
 
 class ExternalSecret(BaseModel):
-    apiVersion: str = "external-secrets.io/v1beta1"
+    apiVersion: str = "external-secrets.io/v1"
     kind: str = "ExternalSecret"
     metadata: Metadata
     spec: Spec
