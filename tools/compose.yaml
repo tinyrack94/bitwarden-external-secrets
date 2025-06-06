@@ -1,8 +1,8 @@
 services:
   bitwarden-cli:
-    platform: linux/amd64
-    image: eznix86/bitwarden-cli:latest
+    image: eznix86/bitwarden-operator:latest
     container_name: bitwarden-cli
+    command: /bin/sh -c "while true; do sleep 30; done;"
     # volumes:
     #   - ./entrypoint.sh:/entrypoint.sh
     ports:

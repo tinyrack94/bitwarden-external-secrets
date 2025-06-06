@@ -1,21 +1,41 @@
-#!/bin/bash
+#!/bin/sh
 
-set -e
+set -euo pipefail
 
-mkdir -p "$HOME/.config/Bitwarden CLI"
+: "${BW_HOST:?Environment variable BW_HOST is required}"
+: "${BW_PASSWORD:?Environment variable BW_PASSWORD is required}"
 
-bw config server "${BW_HOST}"
+CONFIG_DIR="$HOME/.config/Bitwarden CLI"
+mkdir -p "$CONFIG_DIR"
 
-echo "Using apikey to log in"
+touch "$CONFIG_DIR/data.json"
+echo "{}" > "$CONFIG_DIR/data.json"
 
-bw login --apikey --raw
+echo "🔧 Configuring Bitwarden CLI with server: $BW_HOST"
+bw config server "$BW_HOST"
 
-export BW_SESSION="$(bw unlock --passwordenv BW_PASSWORD --raw)"
+echo
 
-bw unlock --check
+echo "🔐 Logging in using API key..."
+if ! bw login --apikey --raw > /dev/null; then
+    echo "❌ Failed to log in with API key"
+    exit 1
+fi
 
-echo -e "\n"
+echo "🔓 Unlocking vault..."
+if ! export BW_SESSION="$(bw unlock --passwordenv BW_PASSWORD --raw)"; then
+    echo "❌ Failed to unlock vault"
+    exit 1
+fi
 
-echo 'Running `bw server` on port 8087'
+if ! bw unlock --check > /dev/null; then
+    echo "❌ Unlock check failed"
+    exit 1
+fi
+
+echo "✅ Bitwarden CLI is authenticated and unlocked"
+
+echo "🚀 Starting Bitwarden CLI server on port 8087"
+echo
 
 exec "$@"
