@@ -26,22 +26,22 @@ spec:
             - name: BW_HOST
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.existingSecret | default "bitwarden-cli" }}
+                  name: {{ .Values.secrets.existingSecret | default "bitwarden-cli" }}
                   key: BW_HOST
             - name: BW_CLIENTID
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.existingSecret | default "bitwarden-cli" }}
+                  name: {{ .Values.secrets.existingSecret | default "bitwarden-cli" }}
                   key: BW_CLIENTID
             - name: BW_CLIENTSECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.existingSecret | default "bitwarden-cli" }}
+                  name: {{ .Values.secrets.existingSecret | default "bitwarden-cli" }}
                   key: BW_CLIENTSECRET
             - name: BW_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.existingSecret | default "bitwarden-cli" }}
+                  name: {{ .Values.secrets.existingSecret | default "bitwarden-cli" }}
                   key: BW_PASSWORD
           ports:
             - name: http
