@@ -10,6 +10,7 @@ operator:
     tag: latest
 
 secrets:
+  existingSecret: ""
   bw_clientid: ""
   bw_clientsecret: ""
   bw_password: ""
